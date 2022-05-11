@@ -58,7 +58,6 @@ contract CollectionNFT{
     uint256 private Gold_balance = 1000;
 
     mapping(uint256 => uint256)public Tiger_withDraw;//by ID
-    mapping(uint256 => uint256)public DiamondTiger;
     mapping(uint256 => bool)public NinjaAirdrop;
     mapping(uint256 => bool)public TigerAirdrop;
 
@@ -173,7 +172,6 @@ contract CollectionNFT{
 
 
     }
-
 
     function Claim_Ninja_Token()internal returns(uint256){
         if(Ninja.balanceOf(msg.sender) == 0){
@@ -312,62 +310,6 @@ contract CollectionNFT{
                 Token_Balance += Withdrawal * Platinum_balance;
             }else if(tokenId <= 338){
                 Token_Balance += Withdrawal * Gold_balance;
-            }
-
-
-        }
-
-        return Token_Balance;
-    }
-
-
-    function ClaimDiamondTigerWithdraw()internal returns(uint256){
-          if(Tiger.balanceOf(msg.sender) == 0){
-            return 0;
-        }
-
-        uint256 Token_Balance = 0;
-
-        for(uint256 i=0;i<Tiger.balanceOf(msg.sender);i++){
-            uint256 tokenId = TigerEnu.tokenOfOwnerByIndex(msg.sender, i);
-
-            uint256 Withdrawal = checkTimeByMonth() - DiamondTiger[tokenId];
-
-            if(Withdrawal + DiamondTiger[tokenId] >25){
-                Withdrawal = 25 -  DiamondTiger[tokenId];
-                DiamondTiger[tokenId] = 25;
-            }else{
-                DiamondTiger[tokenId] += Withdrawal;
-            }
-
-            if(tokenId <= 20){
-                Token_Balance += Withdrawal * 1000;
-            }
-
-
-        }
-
-        return Token_Balance;
-    }
-
-    function DiamondTigerWithdraw(address user)public view returns(uint256){
-          if(Tiger.balanceOf(user) == 0){
-            return 0;
-        }
-
-        uint256 Token_Balance = 0;
-
-        for(uint256 i=0;i<Tiger.balanceOf(user);i++){
-            uint256 tokenId = TigerEnu.tokenOfOwnerByIndex(user, i);
-
-            uint256 Withdrawal = checkTimeByMonth() - DiamondTiger[tokenId];
-
-            if(Withdrawal + DiamondTiger[tokenId] >25){
-                Withdrawal = 25 -  DiamondTiger[tokenId];
-            }
-
-            if(tokenId <= 20){
-                Token_Balance += Withdrawal * 1000;
             }
 
 
@@ -680,19 +622,6 @@ contract TigerCoin is Lockup{
 
     }
 
-     function DiamondWithdraw() external{
-        require(Tiger.balanceOf(msg.sender) > 0 ,"Not enought Tiger");
-
-        uint256 count = ClaimDiamondTigerWithdraw();
-
-        require(count > 0,"You can't claim the token");
-
-        _transfer(address(this), msg.sender, count * 1e18);
-
-
-
-    }
-
     function Dao_withDraw() external{
         require(msg.sender == SuperStar_Tiger_Foundation,"You are not the Foundation address");
         require(checkTimeByMonth() - WithdrawalAmount[SuperStar_Tiger_Foundation] > 0 ,"Not the time to withdraw");
@@ -748,8 +677,6 @@ contract TigerCoin is Lockup{
 
     }
 
-
-
     function aipdrop(address[] memory user,uint256 amouunt)external{
 
         for(uint256 a=0;a<user.length;a++){
@@ -758,8 +685,6 @@ contract TigerCoin is Lockup{
 
         }
     }
-
-
 
 
     //view function
