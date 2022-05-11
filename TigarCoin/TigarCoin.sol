@@ -331,7 +331,7 @@ contract Lockup is CollectionNFT{
     mapping(address => uint256)public WithdrawalAmount;
     mapping(address => uint256)public ModWithdrawal;
     mapping(address => uint256)public ModAddTime;
-    uint256 public constant DAO_Balance = 48000000 * 1e18;//48 mounth
+    uint256 public constant DAO_Balance = 45000000 * 1e18;//45 mounth
 
     uint256 private constant ModPay = 1250;
 
@@ -668,7 +668,7 @@ contract TigerCoin is Lockup{
             revert("Nothing to withdraw");
         }
 
-
+        require(ModSupply >= amount,"Withdrawal completed");
         require(ModSupply - amount > 0 ,"Insufficient withdrawal amount");
 
         ModSupply -= amount * 1e18;
