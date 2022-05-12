@@ -407,6 +407,8 @@ contract TigerCoin is Lockup{
 
     constructor() {
 
+        SuperStar_Tiger_Foundation = 0x38A4227dDD728171a6595eB0A67cD6d44Ec88173;
+
         //Ethereum Foundation 以太坊基金會
         _balances[Ethereum_Foundation] = spand(_totalSupply,100);
         //DAO address
