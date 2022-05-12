@@ -6,19 +6,15 @@ import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 
 pragma solidity ^0.8.0;
 
-library Distribute{
+
+
+contract CollectionNFT{
 
     function spand(uint256 Total,uint256 Proportion)public pure returns(uint256){
         uint256 share = Total / 10000;
 
         return share * Proportion;
     }
-
-}
-
-
-
-contract CollectionNFT{
 
     uint256 public timeLock;
 
@@ -411,26 +407,28 @@ contract TigerCoin is Lockup{
 
     constructor() {
 
+        SuperStar_Tiger_Foundation = 0x38A4227dDD728171a6595eB0A67cD6d44Ec88173;
+
         //Ethereum Foundation 以太坊基金會
-        _balances[Ethereum_Foundation] = Distribute.spand(_totalSupply,100);
+        _balances[Ethereum_Foundation] = spand(_totalSupply,100);
         //DAO address
-        _balances[SuperStar_Tiger_Foundation] = Distribute.spand(_totalSupply,300);
+        _balances[SuperStar_Tiger_Foundation] = spand(_totalSupply,300);
         //Vitalik Buterin V神
-        _balances[Vitalik_Buterin] = Distribute.spand(_totalSupply,850);
+        _balances[Vitalik_Buterin] = spand(_totalSupply,850);
         //Project Owner
-        _balances[Project_Owner] = Distribute.spand(_totalSupply,900);
+        _balances[Project_Owner] = spand(_totalSupply,900);
         //天使投資人
-        _balances[Angel_Founder] = Distribute.spand(_totalSupply,1700);
+        _balances[Angel_Founder] = spand(_totalSupply,1700);
         //address this
-        _balances[address(this)] = Distribute.spand(_totalSupply,6150);
+        _balances[address(this)] = spand(_totalSupply,6150);
 
 
-        emit Transfer(address(0),Ethereum_Foundation,Distribute.spand(_totalSupply,100));
-        emit Transfer(address(0),SuperStar_Tiger_Foundation, Distribute.spand(_totalSupply,300));
-        emit Transfer(address(0),Vitalik_Buterin,Distribute.spand(_totalSupply,850));
-        emit Transfer(address(0),Project_Owner, Distribute.spand(_totalSupply,900));
-        emit Transfer(address(0),Angel_Founder,Distribute.spand(_totalSupply,1700));
-        emit Transfer(address(0),address(this),Distribute.spand(_totalSupply,6150));
+        emit Transfer(address(0),Ethereum_Foundation,spand(_totalSupply,100));
+        emit Transfer(address(0),SuperStar_Tiger_Foundation, spand(_totalSupply,300));
+        emit Transfer(address(0),Vitalik_Buterin,spand(_totalSupply,850));
+        emit Transfer(address(0),Project_Owner, spand(_totalSupply,900));
+        emit Transfer(address(0),Angel_Founder,spand(_totalSupply,1700));
+        emit Transfer(address(0),address(this),spand(_totalSupply,6150));
 
     }
 
