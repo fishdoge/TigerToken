@@ -8,6 +8,7 @@ pragma solidity ^0.8.0;
 
 
 
+
 contract CollectionNFT{
 
     function spand(uint256 Total,uint256 Proportion)public pure returns(uint256){
@@ -57,12 +58,12 @@ contract CollectionNFT{
     mapping(uint256 => bool)public NinjaAirdrop;
     mapping(uint256 => bool)public TigerAirdrop;
 
-    function testNinja(address ninja)external{
+    function testNinja(address ninja,address Tigers)external{
         Ninja = IERC721(ninja);
         NinjaEnu = IERC721Enumerable(ninja);
 
-        Tiger = IERC721(ninja);
-        TigerEnu = IERC721Enumerable(ninja);
+        Tiger = IERC721(Tigers);
+        TigerEnu = IERC721Enumerable(Tigers);
 
     }
 
@@ -397,8 +398,8 @@ contract TigerCoin is Lockup{
     string private _symbol = "TGC";
 
 
-    address private Vitalik_Buterin = 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B;
-    address private Ethereum_Foundation = 0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe;
+    // address private Vitalik_Buterin = 0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B;
+    // address private Ethereum_Foundation = 0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe;
 
 
 
@@ -407,24 +408,19 @@ contract TigerCoin is Lockup{
 
     constructor() {
 
-        //Ethereum Foundation 以太坊基金會
-        _balances[Ethereum_Foundation] = spand(_totalSupply,100);
+
         //DAO address
         _balances[SuperStar_Tiger_Foundation] = spand(_totalSupply,300);
-        //Vitalik Buterin V神
-        _balances[Vitalik_Buterin] = spand(_totalSupply,850);
         //Project Owner
-        _balances[Project_Owner] = spand(_totalSupply,900);
+        _balances[Project_Owner] = spand(_totalSupply,1850);
         //天使投資人
         _balances[Angel_Founder] = spand(_totalSupply,1700);
         //address this
         _balances[address(this)] = spand(_totalSupply,6150);
 
 
-        emit Transfer(address(0),Ethereum_Foundation,spand(_totalSupply,100));
         emit Transfer(address(0),SuperStar_Tiger_Foundation, spand(_totalSupply,300));
-        emit Transfer(address(0),Vitalik_Buterin,spand(_totalSupply,850));
-        emit Transfer(address(0),Project_Owner, spand(_totalSupply,900));
+        emit Transfer(address(0),Project_Owner, spand(_totalSupply,1850));
         emit Transfer(address(0),Angel_Founder,spand(_totalSupply,1700));
         emit Transfer(address(0),address(this),spand(_totalSupply,6150));
 
