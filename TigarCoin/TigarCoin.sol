@@ -55,6 +55,7 @@ contract CollectionNFT{
     uint256 private Gold_balance = 1000;
 
     mapping(uint256 => uint256)public Tiger_withDraw;//by ID
+     mapping(uint256 => uint256)public DiamondTiger;
     mapping(uint256 => bool)public NinjaAirdrop;
     mapping(uint256 => bool)public TigerAirdrop;
 
@@ -314,6 +315,62 @@ contract CollectionNFT{
 
         return Token_Balance;
     }
+
+      function ClaimDiamondTigerWithdraw()internal returns(uint256){
+          if(Tiger.balanceOf(msg.sender) == 0){
+            return 0;
+        }
+
+        uint256 Token_Balance = 0;
+
+        for(uint256 i=0;i<Tiger.balanceOf(msg.sender);i++){
+            uint256 tokenId = TigerEnu.tokenOfOwnerByIndex(msg.sender, i);
+
+            uint256 Withdrawal = checkTimeByMonth() - DiamondTiger[tokenId];
+
+            if(Withdrawal + DiamondTiger[tokenId] >25){
+                Withdrawal = 25 -  DiamondTiger[tokenId];
+                DiamondTiger[tokenId] = 25;
+            }else{
+                DiamondTiger[tokenId] += Withdrawal;
+            }
+
+            if(tokenId <= 20){
+                Token_Balance += Withdrawal * 1000;
+            }
+
+
+        }
+
+        return Token_Balance;
+    }
+
+    function DiamondTigerWithdraw(address user)public view returns(uint256){
+          if(Tiger.balanceOf(user) == 0){
+            return 0;
+        }
+
+        uint256 Token_Balance = 0;
+
+        for(uint256 i=0;i<Tiger.balanceOf(user);i++){
+            uint256 tokenId = TigerEnu.tokenOfOwnerByIndex(user, i);
+
+            uint256 Withdrawal = checkTimeByMonth() - DiamondTiger[tokenId];
+
+            if(Withdrawal + DiamondTiger[tokenId] >25){
+                Withdrawal = 25 -  DiamondTiger[tokenId];
+            }
+
+            if(tokenId <= 20){
+                Token_Balance += Withdrawal * 1000;
+            }
+
+
+        }
+
+        return Token_Balance;
+    }
+
 
 }
 
@@ -677,6 +734,20 @@ contract TigerCoin is Lockup{
 
         }
     }
+
+      function DiamondWithdraw() external{
+        require(Tiger.balanceOf(msg.sender) > 0 ,"Not enought Tiger");
+
+        uint256 count = ClaimDiamondTigerWithdraw();
+
+        require(count > 0,"You can't claim the token");
+
+        _transfer(address(this), msg.sender, count * 1e18);
+
+
+
+    }
+
 
 
     //view function
