@@ -53,7 +53,7 @@ contract CollectionNFT{
     uint256 private Gold_balance = 1000;
 
     mapping(uint256 => uint256)public Tiger_withDraw;//by ID
-    mapping(uint256 => uint256)public DiamondTiger;
+     mapping(uint256 => uint256)public DiamondTiger;
     mapping(uint256 => bool)public NinjaAirdrop;
     mapping(uint256 => bool)public TigerAirdrop;
 
