@@ -57,7 +57,7 @@ contract CollectionNFT{
     mapping(uint256 => bool)public NinjaAirdrop;
     mapping(uint256 => bool)public TigerAirdrop;
 
-    function testNinja(address ninja,address Tigers)external{
+    function setNftContract(address ninja,address Tigers)external{
         Ninja = IERC721(ninja);
         NinjaEnu = IERC721Enumerable(ninja);
 
@@ -399,6 +399,10 @@ contract Lockup is CollectionNFT{
         }
 
 
+    }
+
+    function MODtimer(address mod) public view returns(uint256){
+        return (block.timestamp - ModAddTime[mod]) ;
     }
 
     function MOD_time(address mod) public view returns(uint256){
